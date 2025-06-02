@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../resources/icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+    <title>STANDARD CUTS | Dashboard</title>
+</head>
+<body id="dashboard">
+    <header>
+        <div class="container" id="header-div">
+            <a id="logo-link" href="#">
+                <img id="logo" src="../resources/images/main-logo.png" alt="">
+            </a>
+
+            <div id="">
+                <ul>
+                    <li ><a id="logout-btn" class="authentication-link" href="#">LOG OUT</a></li>
+                 
+                </ul>
+
+                <!-- <a href="#"><img id="humburger-menu" src="../resources/icons/menu.png" alt="menu"></a> -->
+            </div>
+        </div>
+    </header>
+    <main id="dashboard-content">
+       <div class="container dashboard-container">
+        <div id="identity-div">
+            <p class="username">Dani</p>
+            <p class="email">danialmo@gmail.com</p>
+        </div>
+        <div id="user-records">
+            
+            <div id="user-data">
+                <div class="user-info-container" id="user-credit">
+                    <h4>Your Credit record</h4>
+                    <table class="user-info-table">
+                        <tbody>
+                            <tr class="user-info">
+                                <td>Subscription fee </td>
+                                <td class="credit-entry" id="subscription-fee">00.00</td>
+                            </tr>
+                            <tr class="user-info">
+                                <td>Subscription period </td>
+                                <td class="credit-entry" id="subscription-period">00.00</td>
+                            </tr>
+                            <tr class="user-info">
+                                <td>Cut count remaining</td>
+                                <td class="credit-entry" id="cut-count">0</td>
+                            </tr>
+                            <tr class="user-info">
+                                <td>Balance</td>
+                                <td class="credit-entry" id="balance">00.00</td>
+                            </tr>
+                            <tr class="user-info">
+                                <td>Dates Allocated</td>
+                                <td class="credit-entry" id="dates"> <ul>:
+                                    <li class="date">0/0/0</li>
+                                    <li class="date">0/0/0</li>
+                                    <li class="date">0/0/0</li>
+                                    <li class="date">0/0/0</li>
+                                </ul></td>
+                            </tr>
+                        </tbody>
+                           
+                    </table>
+                    <div id="edit-plan" class="edit">
+                        <p>Edit here</p>
+                        <a  rel="stylesheet" href="" class="btn-tertiary edit-btn">Edit</a>
+                    </div>
+                </div>
+                <div class="user-info-container" id="user-payment">
+                    <h4>Your Payment Details</h4>
+                    <table class="user-info-list">
+                        <tbody>
+                            <tr class="payment-info">
+                                <td>Name </td> 
+                                <td id="name">: Unknown</td>
+                            </tr>
+                            <tr class="payment-info">
+                                <td>Surname </td> 
+                                <td id="surname">: Unknown</td>
+                            </tr>
+                            <tr class="payment-info">
+                                <td>Card number  </td> 
+                                <td id="card-number">: **** **** **** ****</td>
+                            </tr>
+                            <tr class="payment-info">
+                                <td>Card number </td> 
+                                <td id="cvv">: ***</td>
+                            </tr>
+                            <tr class="payment-info">
+                                <td>Expiry date </td> 
+                                <td id="exp-date">: **/**</td>
+                            </tr>
+                        </tbody>
+                       
+                        
+                    </table>
+                    <div id="edit-plan" class="edit">
+                        <p>Edit here</p>
+                        <a  rel="stylesheet" href="" class="btn-tertiary edit-btn">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </div>
+    </main>
+
+    <footer>
+        <div class="container" >
+            <div class="" id="navigations">
+                <a href="#"><h3>Standard Cuts</h3></a>
+                <div>
+                    <p>PAGE NAVIGATION</p>
+                    <ul id="page-navigation">
+                        <li><a class="current" href="#">Home</a></li>
+                        <li><a class="" href="#demonstrations">Catalog</a></li>
+                        <li><a class="" href="#testimonies">Testimonies</a></li>
+                        <li><a class="" href="#barber-infor">About Barber</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+       
+       
+        <div id="copyright">
+            <!-- Character entity representing '©', unicode equivalent 'U+00A9' -->
+
+
+            <p id="copy">
+                <script>
+                    document.getElementById('copy').textContent = `${new Date().getFullYear()}`
+                </script>
+           , Copyright Reserved. </p>
+        </div>
+    </footer>
+</body>
+
+<script type="module" src="../javascript/Client.js"></script>
+</html>

@@ -1,0 +1,30 @@
+POST  http://localhost:5000/api/v1/authentication/login
+Content-Type: application/json
+
+{
+    "username": "Dani",
+    "password": "@Dani01."
+}
+
+####
+
+GET http://localhost:5000/api/v1/payment/payment_detail
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI4RXpPdU5FSzUiLCJpYXQiOjE3NDg1NDI4NjMsImV4cCI6MTc0ODU0NjQ2M30.EV-n2k9HV2HdZE-qAxZ2R5PFJxJwSjxI6RhWnHdXHVY
+
+{}
+
+###
+GET http://localhost:5000/api/v1/user_credit/user_credit_details
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI4RXpPdU5FSzUiLCJpYXQiOjE3NDg1NDI4NjMsImV4cCI6MTc0ODU0NjQ2M30.EV-n2k9HV2HdZE-qAxZ2R5PFJxJwSjxI6RhWnHdXHVY
+
+{}
+
+
+###
+GET http://localhost:5000/api/v1/user/user_details
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI4RXpPdU5FSzUiLCJpYXQiOjE3NDg1NDk1NjYsImV4cCI6MTc0ODU1MzE2Nn0.ML0juqxF48PsMgwUZe5dkhszBZRovUdodkn2oayi1RE
+
+{}

@@ -1,0 +1,28 @@
+{
+    "paymentDetails":[
+        {
+            "userID":"8EzOuNEK5", 
+            "name" : "Dani",
+            "surname" : "Almo",
+            "cardNumber" : 5488788990546566,
+            "cvv" : 218,
+            "expiryDate": "12/28"
+        },
+        {
+            "userID" : 2, 
+            "name" : "Joe",
+            "surname" : "Bandaras",
+            "cardNumber" : 2458947545435834,
+            "cvv" : 206,
+            "expiryDate": "09/29"
+        },
+        {
+            "userID" : 2, 
+            "name" : "Bill",
+            "surname" : "Fox",
+            "cardNumber" : 3456546544565777,
+            "cvv" : 509,
+            "expiryDate": "03/27"
+        }
+    ]
+}

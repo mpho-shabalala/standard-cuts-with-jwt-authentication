@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../resources/icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+    <title>STANDARD CUTS|Login</title>
+</head>
+<body id="signup-page">
+     <!-- HERO SECTION -->
+     <header>
+        <div class="container" id="header-div">
+           <a id="logo-link" href="index.html">
+                <img id="logo" src="../resources/images/main-logo.png" alt="">
+            </a>
+        </div>
+    </header>
+
+    <section id="account-section">
+        <form  id="signup">
+            <p>SIGNUP</p>
+            <div id="form-content">
+                <p id="notification"></p>
+                <input name="email" type="email" placeholder="Email" required>
+                <input autocomplete="username" name="username" type="text" placeholder="Username" required>
+                <input autocomplete="new-password" name="password" type="password" placeholder="Password" required>
+                <input autocomplete="new-password" name="confirmPassword" type="password" placeholder="Confirm password" required>
+                <div id="newsletter-checkbox">
+                    <input type="checkbox" name="acceptNewsletter" id="">
+                    <p>I do not want to recieve emails with advertising news or suggestions</p>
+                </div>
+                <button class="btn-secondary" type="submit">GO</button>
+                <p id="terms-of-service">By signing up to create an account, you are accepting our terms of service and privacy policy</p>
+                <div id="account-recover">
+               
+                </div>
+            </div>
+        </form>
+        <div>
+            <!-- <a href="signup.html">Create account</a> -->
+        </div>
+    </section>
+
+
+     <!-- FOOTER -->
+     <footer>
+        <div class="container" >
+            <div class="" id="navigations">
+                <a href="#"><h3>Standard Cuts</h3></a>
+                <div>
+                    <p>PAGE NAVIGATION</p>
+                    <ul id="page-navigation">
+                        <li><a class="current" href="#">Home</a></li>
+                        <li><a class="" href="#demonstrations">Catalog</a></li>
+                        <li><a class="" href="#testimonies">Testimonies</a></li>
+                        <li><a class="" href="#barber-infor">About Barber</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+       
+       
+        <div id="copyright">
+            <!-- Character entity representing '©', unicode equivalent 'U+00A9' -->
+
+
+            <p id="copy">
+                <script>
+                    document.getElementById('copy').textContent = `${new Date().getFullYear()}`
+                </script>
+           , Copyright Reserved. </p>
+        </div>
+    </footer>
+</body>
+<script type="module" src="../javascript/Client.js"></script>
+</html>

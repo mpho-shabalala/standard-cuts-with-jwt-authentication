@@ -1,0 +1,27 @@
+{
+    "userCreditDetails":[ 
+    {
+        "userID":"8EzOuNEK5", 
+        "subscriptionFee": 100,
+        "period": "1 month",
+        "cutCountRemaining" : 2,
+        "balance" : 50,
+        "dates_allocated" : ["01/05/2025", "07/05/2025", "15/05/2025", "22/05/2025"]
+    },
+    {
+        "userID" : 1, 
+        "subscriptionFee": 100,
+        "period": "1 month",
+        "cutCountRemaining" : 3,
+        "balance" : 75,
+       "dates_allocated" : ["01/07/2025", "07/07/2025", "15/07/2025", "22/07/2025"]
+    },
+    {
+        "userID" : 2, 
+        "subscriptionFee": 100,
+        "period": "1 month",
+        "cutCountRemaining" : 1,
+        "balance" : 25,
+        "dates_allocated" : ["01/07/2025", "07/07/2025", "15/07/2025", "22/07/2025"]
+    }]
+}
