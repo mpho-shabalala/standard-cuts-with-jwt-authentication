@@ -7,7 +7,7 @@ export class Login extends AutoRoutingMixin(Standardcuts){
         // this.#checkToken();
     }
 
-    handleFormSubmit =   async ( loginForm, loginURL )  => {
+    handleFormSubmit =   async ( loginForm,notificationParagraph,  loginURL )  => {
         loginForm.addEventListener('submit', async e => {
             e.preventDefault();
             const formData = new FormData(loginForm);
@@ -24,12 +24,14 @@ export class Login extends AutoRoutingMixin(Standardcuts){
                         })
                     }
                 );
-
+                
                 const data = await response.json();
                 this.routeToPage(data, this.pageUrl);
 
             }catch(error){
+                console.log('status', response.status)
                 console.log("Error message: ", error.message);
+                this.errorNotificationUI(notificationParagraph, 'Incorrect username or password')
             }
             })
         }

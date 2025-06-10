@@ -121,6 +121,15 @@ export class Standardcuts{
       postResponseHeaders = () => {
         return { 'Content-Type':'application/json'}
       }
+
+       errorNotificationUI = (notificationParagraph, notificationMessage) => {
+        const TIMEOUT = 5000;
+        notificationParagraph.style.cssText = "display: flex";
+        notificationParagraph.textContent = notificationMessage;
+        setTimeout(() => {
+            notificationParagraph.style.cssText = "display: none";
+        }, TIMEOUT);
+    }
 }
 
 

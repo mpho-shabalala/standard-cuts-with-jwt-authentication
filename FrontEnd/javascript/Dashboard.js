@@ -77,7 +77,7 @@ export class Dashboard extends Standardcuts{
 
    updateCreditRecordUI = async (subFee, subPeriod, cutCount, balance, dates) => {
     const userCreditDetails = await this.#getUserCreditDetails();
-    
+    console.log(userCreditDetails)
     if(userCreditDetails.status !== 'fail'){
         
         subFee.textContent = `: R${(userCreditDetails.status !== 'fail') ? userCreditDetails.subscriptionFee : '00'}.00`;

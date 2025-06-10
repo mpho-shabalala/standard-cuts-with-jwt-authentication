@@ -9,6 +9,9 @@ class client{
     _UI = new UIComponents();
     _menuBarOpen = false;
 
+
+
+
     constructor(){
         this.init();
     }
@@ -26,10 +29,11 @@ class client{
             await homepage.navigateUser();
         }else if(document.body.id === 'login-page'){
             const loginForm = this.UI.getDomElement('form', 'login');
+             const notificationParagraph = this.UI.getDomElement('p', 'notification');
             if(loginForm){
                 const login = new Login('/user/user_detail');
                  await login.navigateUser();
-                login.handleFormSubmit(loginForm,'/authentication/login' );
+                login.handleFormSubmit(loginForm,notificationParagraph,'/authentication/login' );
             }
         }else if(document.body.id === 'dashboard'){
             //logout

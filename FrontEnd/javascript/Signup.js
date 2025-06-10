@@ -48,24 +48,17 @@ export class Signup extends AutoRoutingMixin(Standardcuts){
     #isPasswordTestPassed = (password, confirmPassword, notificationParagraph) => {
 
         if(!this.#isPasswordMatching(password, confirmPassword)) {
-           this.#displayPasswordNotification(notificationParagraph, "Passwords do not match!!");
+           this.errorNotificationUI(notificationParagraph, "Passwords do not match!!");
             return false;
         }   
         if(!this.#isPasswordValid(password)){
-            this.#displayPasswordNotification(notificationParagraph, "Invalid password format!!");
-           
+            this.errorNotificationUI(notificationParagraph, "Invalid password format!!");
+           return false;
         }
         return true;
     }
 
-    #displayPasswordNotification = (notificationParagraph, notificationMessage) => {
-        const TIMEOUT = 5000;
-        notificationParagraph.style.cssText = "display: flex";
-        notificationParagraph.textContent = notificationMessage;
-        setTimeout(() => {
-            notificationParagraph.style.cssText = "display: none";
-        }, TIMEOUT);
-    }
+ 
 
     #isPasswordValid = password => {
         const regex = new RegExp("^(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$");

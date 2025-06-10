@@ -4,6 +4,7 @@ const fs = require('fs');
 const shortid = require("shortid");
 const util = require('./utilities')
 const userDBPath = '../Backend/database/users.json';
+const bcrypt = require('bcrypt');
 
 exports.getAllAuthenticatedUsers = async (req, res, next) => {
     try{
@@ -38,6 +39,7 @@ exports.getUser = async (req, res, next) => {
             return res.status(401).json({
             status: 'fail',
             message: 'Invalid username or password',
+            errorCode: 'USER_NOT_FOUND'
             })
         }
         // Sign JWT token with userID as payload
@@ -55,12 +57,13 @@ exports.getUser = async (req, res, next) => {
     }catch(error){
         return res.status(500).json({
             status : 'fail',
-            message : error.message
+            message : error.message,
+            errorCode: 'SERVER_ERROR'
         });
     }
 }
 
-//set users (Add users)
+// Set users (Add user)
 exports.postUser = async (req, res, next) => {
   const userID = shortid.generate();
   const {
@@ -71,37 +74,51 @@ exports.postUser = async (req, res, next) => {
     acceptNewsletter
   } = req.body;
 
-  const newUser = {
-    userID,
-    username,
-    email,
-    contacts,
-    password,
-    acceptNewsletter: acceptNewsletter === 'on',
-  };
+  const saltRounds = parseInt(process.env.SALT_ROUNDS || '10');
 
   try {
-    const data = util.readData(userDBPath);
 
-    // Optionally: check for duplicate username/email here
-    const userExists = data.users.some(u => u.username === username || u.email === email);
+     // 1. Hash the password
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+
+    const data = util.readData(userDBPath);
+    
+    // 1. Conflict: user exists
+    const userExists = data.users.some(
+      u => u.username === username || u.email === email
+    );
+
     if (userExists) {
       return res.status(409).json({
         status: 'fail',
-        message: 'User already exists with this username or email',
+        message: 'A user with that username or email already exists.',
+        errorCode: 'USER_EXISTS'
       });
     }
 
+      // 4. Create new user with hashed password
+    const newUser = {
+      userID,
+      username,
+      email,
+      contacts,
+      password: hashedPassword, // use hashed password
+      acceptNewsletter: acceptNewsletter === 'on',
+    };
+
+    // 2. Create and store user
     data.users.push(newUser);
     fs.writeFileSync(userDBPath, JSON.stringify(data));
 
-    // Generate JWT
+    // 3. JWT generation
     const token = jwt.sign(
       { userID: newUser.userID },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '1h' }
     );
 
+    // 4. Respond with created user info (without password)
     return res.status(201).json({
       status: 'success',
       token,
@@ -111,10 +128,14 @@ exports.postUser = async (req, res, next) => {
         userID: newUser.userID
       }
     });
+
   } catch (error) {
+    // 5. Unexpected server error
     return res.status(500).json({
       status: 'fail',
-      message: 'Internal server error'
+      message: 'Internal server error. Please try again later.',
+      errorCode: 'SERVER_ERROR'
     });
   }
 };
+
