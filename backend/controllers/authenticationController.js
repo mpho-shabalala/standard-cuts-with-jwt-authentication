@@ -25,6 +25,7 @@ exports.getAllAuthenticatedUsers = async (req, res, next) => {
 exports.getUser = async (req, res, next) => {
      const { username = null, password = null } = req.body;
 
+     //check if username and password have been inputed
   if (!username || !password) {
     return res.status(400).json({
       status: 'fail',
@@ -34,7 +35,9 @@ exports.getUser = async (req, res, next) => {
     // console.log({userID,username,password})
     try{
         const userData = util.readData(userDBPath);
-        const user = userData.users.find((u) => u.username === username && u.password === password);
+        // find user through username
+        const user = userData.users.find((u) => u.username === username);
+        // notify if user does not exist
         if (!user) {
             return res.status(401).json({
             status: 'fail',
@@ -42,8 +45,21 @@ exports.getUser = async (req, res, next) => {
             errorCode: 'USER_NOT_FOUND'
             })
         }
+
+        // Compare input password with stored hashed password
+    const match = await bcrypt.compare(password, user.password);
+     if (!match) {
+      return res.status(401).json({
+        status: 'fail',
+        message: 'Invalid username or password',
+        errorCode: 'INVALID_PASSWORD'
+      });
+    }
         // Sign JWT token with userID as payload
-        const token = jwt.sign({ userID: user.userID }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h',});
+        const token = jwt.sign(
+          { userID: user.userID }, 
+          process.env.ACCESS_TOKEN_SECRET, 
+          {expiresIn: '1h',});
 
         return res.status(200).json({
             status: 'success',
