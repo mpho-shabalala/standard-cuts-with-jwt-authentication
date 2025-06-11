@@ -2,6 +2,7 @@ import { Login } from "../javascript/Login.js";
 import { Dashboard } from "../javascript/Dashboard.js";
 import { Signup } from "../javascript/Signup.js";
 import { Homepage } from "../javascript/Homepage.js";
+import { recoverAcc } from "./recoverAccount.js";
 import { UIComponents } from "../javascript/UIComponents.js";
 // import { sign } from "crypto";
 
@@ -71,6 +72,13 @@ class client{
                 const signup = new Signup("/user/user_detail");
                  await signup.navigateUser();
                 await signup.handleFormSubmit(signupForm, "/authentication/users", notificationParagraph);
+            }
+        }else if( document.body.id === 'recover-account'){
+            const recoveryForm = this.UI.getDomElement('form', 'recover-form');
+            if(recoveryForm){
+                const notificationParagraph = this.UI.getDomElement('p', 'notification');
+                const recover = new recoverAcc(null);// no need for extended url because no automatic authentication needed
+                await recover.handleFormSubmit(recoveryForm, notificationParagraph, '/authentication/recover_account');
             }
         }
     }

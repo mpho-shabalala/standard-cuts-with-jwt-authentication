@@ -14,6 +14,7 @@ export class Login extends AutoRoutingMixin(Standardcuts){
             const username = formData.get("username");
             const password = formData.get("password");
             try{
+                //post login data to backend
                 const response = await fetch(`${this.baseUrl}${loginURL}`,
                     {
                         method: 'POST',

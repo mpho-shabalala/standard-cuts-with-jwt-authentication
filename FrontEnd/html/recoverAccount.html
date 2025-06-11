@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../resources/icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+    <title>STANDARD CUTS|Login</title>
+</head>
+<body id="recover-account">
+     <!-- HERO SECTION -->
+     <header>
+        <div class="container" id="header-div">
+           <a id="logo-link" href="index.html">
+                <img id="logo" src="../resources/images/main-logo.png" alt="">
+            </a>
+        </div>
+    </header>
+
+    <section id="account-section">
+        <p id="notification"></p>
+        <form id="recover-form">
+            <p>RECOVER ACCOUNT</p>
+            <div id="form-content">
+                 
+                <input id="email" name="email" type="email" placeholder="Email" required>
+                <button class="btn-secondary" type="submit">SEND RESET LINK</button>
+                <div id="account-recover">
+                    <a href="login.html">Log in</a>
+                </div>
+            </div>
+        </form>
+        <div>
+            <a href="signup.html">Create account</a>
+        </div>
+    </section>
+
+
+     <!-- FOOTER -->
+     <footer>
+        <div class="container" >
+            <div class="" id="navigations">
+                <a href="#"><h3>Standard Cuts</h3></a>
+                <div>
+                    <p>PAGE NAVIGATION</p>
+                    <ul id="page-navigation">
+                        <li><a class="current" href="#">Home</a></li>
+                        <li><a class="" href="#demonstrations">Catalog</a></li>
+                        <li><a class="" href="#testimonies">Testimonies</a></li>
+                        <li><a class="" href="#barber-infor">About Barber</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+       
+       
+        <div id="copyright">
+            <!-- Character entity representing '©', unicode equivalent 'U+00A9' -->
+
+
+            <p id="copy">
+                <script>
+                    document.getElementById('copy').textContent = `${new Date().getFullYear()}`
+                </script>
+           , Copyright Reserved. </p>
+        </div>
+    </footer>
+</body>
+<script type="module" src="../javascript/Client.js"></script>
+</html>
