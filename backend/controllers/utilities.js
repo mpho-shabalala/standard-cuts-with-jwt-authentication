@@ -19,14 +19,16 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-exports.sendPasswordResetEmail = async (to, resetToken) => {
+exports.sendPasswordResetEmail = async (to, resetToken, username) => {
   const resetURL = `${process.env.PAGE_RECOVER_URL}/resetPassword.html?token=${resetToken}`; // frontend route
 
   const mailOptions = {
-    from: `"YourApp Support" <${process.env.EMAIL_USERNAME}>`,
+    from: `"Standard Cuts Support Team" <${process.env.EMAIL_USERNAME}>`,
     to,
     subject: 'Reset your password',
     html: `
+      <img src='../resources/main-logo.png' />
+      <h1>Hello ${username}</h1>
       <p>You requested a password reset. Click the link below to set a new password:</p>
       <a href="${resetURL}">${resetURL}</a>
       <p>This link will expire in 15 minutes.</p>

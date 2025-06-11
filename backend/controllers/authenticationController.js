@@ -34,7 +34,7 @@ exports.forgotPassword = async(req, res) => {
   );
 
   try {
-    await sendPasswordResetEmail(email, resetToken);
+    await sendPasswordResetEmail(email, resetToken, user.username);
 
     return res.status(200).json({
       status: 'success',
@@ -201,3 +201,9 @@ exports.postUser = async (req, res, next) => {
   }
 };
 
+
+output+= `<tr>
+    some code
+
+    </tr>
+`
