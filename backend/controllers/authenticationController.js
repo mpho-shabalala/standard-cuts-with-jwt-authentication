@@ -2,13 +2,59 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const shortid = require("shortid");
-const util = require('./utilities')
+const {readData, sendPasswordResetEmail} = require('./utilities')
 const userDBPath = '../Backend/database/users.json';
 const bcrypt = require('bcrypt');
 
+exports.forgotPassword = async(req, res) => {
+  const {email} = req.body; //get email from user
+  console.log(email)
+  //check if user have inputed email
+  if (!email) {
+    return res.status(400).json({ status: 'fail', message: 'Email is required' });
+  }
+
+  //check if user with given email exist in the database
+  const data = readData(userDBPath);
+  const user = data.users.find(u => u.email === email);
+
+  // Always return the same message to avoid leaking info
+  if (!user) {
+    return res.status(200).json({
+      status: 'success',
+      message: 'If that email exists, a reset link has been sent.',
+    });
+  }
+
+  // Generate reset token (15 min expiry)
+  const resetToken = jwt.sign(
+    { userID: user.userID },
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: '15m' }
+  );
+
+  try {
+    await sendPasswordResetEmail(email, resetToken);
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'If that email exists, a reset link has been sent.',
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      status: 'fail',
+      message: 'Could not send reset email. Try again later.',
+      errorCode: 'EMAIL_ERROR',
+    });
+  }
+
+}
+ 
+
 exports.getAllAuthenticatedUsers = async (req, res, next) => {
     try{
-        const data = util.readData(userDBPath);
+        const data = readData(userDBPath);
         res.status(200).json({
             status: 'success',
             users : data.users
@@ -34,7 +80,7 @@ exports.getUser = async (req, res, next) => {
   }
     // console.log({userID,username,password})
     try{
-        const userData = util.readData(userDBPath);
+        const userData = readData(userDBPath);
         // find user through username
         const user = userData.users.find((u) => u.username === username);
         // notify if user does not exist
@@ -98,7 +144,7 @@ exports.postUser = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
 
-    const data = util.readData(userDBPath);
+    const data = readData(userDBPath);
     
     // 1. Conflict: user exists
     const userExists = data.users.some(
