@@ -23,8 +23,8 @@ export class Signup extends AutoRoutingMixin(Standardcuts){
                     );
                     
                     const data = await response.json();
-                    console.log(data)
-                    this.routeToPage(data, this.pageUrl);
+                    console.log('data: ',data)
+                    // this.routeToPage(data, this.pageUrl);
 
                 }catch(error){
                     console.log("Error messages: ", error.message);

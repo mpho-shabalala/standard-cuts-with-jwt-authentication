@@ -67,7 +67,6 @@ export class Standardcuts{
     try {
         this.isLoading = true;
         const token = this.#retrieveToken();
-        if (!token) throw new Error('No token found in localStorage');
         // if(token === undefined) return
         const response = await fetch(`${this.baseUrl}${this.extendedUrl}`, {
             method: 'GET',
@@ -91,7 +90,28 @@ export class Standardcuts{
     } finally {
         this.isLoading = false;
     }
-}
+    }
+
+    submitURLToken = async () => {
+        try{
+            const token = this.#retrieveParamToken();
+            const response = await fetch(`${this.baseUrl}${this.extendedUrl}`, {
+             method: 'POST',
+             headers: { 'Content-Type': 'application/json' },
+             body: JSON.stringify({ token })
+            });
+
+            const data = await response.json();
+        
+            return data;
+
+            }catch(error){
+                console.log(error);
+                // return error; // error is the data needed here
+            }
+    }
+
+
 
  navigateUser = async () => {
     
@@ -111,7 +131,16 @@ export class Standardcuts{
      * @returns user id
      */
     #retrieveToken = () => {
-        return localStorage.getItem('token');
+        const token = localStorage.getItem('token');
+         if (!token) throw new Error('No token found in localStorage');
+        return token
+    }
+
+    #retrieveParamToken = () => {
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+        if (!token) throw new Error('No token found in url');
+        return token;
     }
  
       /**

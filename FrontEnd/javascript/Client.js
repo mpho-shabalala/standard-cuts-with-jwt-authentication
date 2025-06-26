@@ -4,6 +4,7 @@ import { Signup } from "../javascript/Signup.js";
 import { Homepage } from "../javascript/Homepage.js";
 import { recoverAcc } from "./recoverAccount.js";
 import { UIComponents } from "../javascript/UIComponents.js";
+import { verifyUser } from "./verifyuser.js";
 // import { sign } from "crypto";
 
 class client{
@@ -80,6 +81,8 @@ class client{
                 const recover = new recoverAcc(null);// no need for extended url because no automatic authentication needed
                 await recover.handleFormSubmit(recoveryForm, notificationParagraph, '/authentication/recover_account');
             }
+        }else if(document.body.id === 'verify-user'){
+            const verify = new verifyUser('/verify_user');
         }
     }
 

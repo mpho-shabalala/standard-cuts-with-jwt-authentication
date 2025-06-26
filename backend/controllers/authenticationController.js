@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const shortid = require("shortid");
-const {readData, sendPasswordResetEmail} = require('./utilities')
+const {readData, sendPasswordResetEmail, sendVerificationEmail} = require('./utilities.js')
 const userDBPath = '../Backend/database/users.json';
 const bcrypt = require('bcrypt');
 
@@ -68,6 +68,8 @@ exports.getAllAuthenticatedUsers = async (req, res, next) => {
     }
 }
 
+
+//login
 exports.getUser = async (req, res, next) => {
      const { username = null, password = null } = req.body;
 
@@ -159,7 +161,7 @@ exports.postUser = async (req, res, next) => {
       });
     }
 
-      // 4. Create new user with hashed password
+      // 4. Create new user with hashed password and unverified
     const newUser = {
       userID,
       username,
@@ -167,23 +169,28 @@ exports.postUser = async (req, res, next) => {
       contacts,
       password: hashedPassword, // use hashed password
       acceptNewsletter: acceptNewsletter === 'on',
+      emailVerified: false
     };
 
     // 2. Create and store user
     data.users.push(newUser);
     fs.writeFileSync(userDBPath, JSON.stringify(data));
 
-    // 3. JWT generation
-    const token = jwt.sign(
-      { userID: newUser.userID },
-      process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '1h' }
-    );
+     // 3. Generate VERIFICATION token (15 min expiry)
+    const verificationToken = jwt.sign(
+    { userID: newUser.userID },
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: '15m' }
+  );
+
+  // 4. send email verification link
+  await sendVerificationEmail(email, verificationToken,username );
+
 
     // 4. Respond with created user info (without password)
     return res.status(201).json({
       status: 'success',
-      token,
+      statuscode: 'AWAITING_VERIFICATION',
       user: {
         username: newUser.username,
         email: newUser.email,
@@ -201,9 +208,54 @@ exports.postUser = async (req, res, next) => {
   }
 };
 
+exports.verifyUser = async (req, res) => {
+  const {token} = req.body;
+  try{
+    //decode token attributes
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    //check user existance with decoded userID
+    const data = readData(userDBPath);
+    const user = data.users.find(u => u.userID === decoded.userID);
+    if(!user) {
+      return res.status(404).json({ status: 'fail', message: 'User not found' });
+    }
 
-output+= `<tr>
-    some code
+    //check if the user is already verified
+    if(user.emailVerified){
+      return res.status(200).json({ status: 'success', message: 'Email already verified' });
+    }
 
-    </tr>
-`
+    //tick user as verified and save to database
+    user.emailVerified = true;
+    fs.writeFileSync(userDBPath, JSON.stringify(data));
+    // create authentication token to send to user frontend
+    const authToken = jwt.sign(
+      { userID: user.userID },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: '1h' }
+    );
+
+
+    //send basic data to the frontend
+    return res.status(200).json({
+      status: 'success',
+      message: 'Email verified successfully',
+      token: authToken,
+      statusCode: 'EMAIL_VERIFIED',
+      user: {
+        userID: user.userID,
+        username: user.username,
+        email: user.email
+      }
+    });
+  }catch(error){
+    console.log(error.message);
+    //Send error response
+    return res.status(200).json({
+      status:'success',
+      message: error.message,
+      statusCode: 'EMAIL_NOT_VERIFIED'
+    });
+  }
+}
+

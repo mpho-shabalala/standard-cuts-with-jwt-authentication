@@ -7,6 +7,7 @@ router.route('/users')
 .get(authenticationController.getAllAuthenticatedUsers);
 
 router.route('/recover_account').post(authenticationController.forgotPassword)
+router.route('/verify_user').post(authenticationController.verifyUser);
 
 router.route('/login').post(authenticationController.getUser);
 module.exports = router;

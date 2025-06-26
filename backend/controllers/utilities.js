@@ -23,7 +23,7 @@ exports.sendPasswordResetEmail = async (to, resetToken, username) => {
   const resetURL = `${process.env.PAGE_RECOVER_URL}/resetPassword.html?token=${resetToken}`; // frontend route
 
   const mailOptions = {
-    from: `"Standard Cuts Support Team" <${process.env.EMAIL_USERNAME}>`,
+    from: `Standard Cuts Support Team <${process.env.EMAIL_USERNAME}>`,
     to,
     subject: 'Reset your password',
     html: `
@@ -35,7 +35,24 @@ exports.sendPasswordResetEmail = async (to, resetToken, username) => {
     `,
   };
 
-  return transporter.sendMail(mailOptions);
+  return await transporter.sendMail(mailOptions);
 };
+
+exports.sendVerificationEmail = async (to , verificationToken, username) => {
+   const verificationURL = `${process.env.PAGE_RECOVER_URL}/verify-user-email.html?token=${verificationToken}`; // frontend route
+  const mailOptions = {
+     from: `Standard Cuts Support Team" <${process.env.EMAIL_USERNAME}>`,
+    to,
+    subject: 'Please verify your email address',
+    html: 
+      `<h2>Welcome, ${username}!</h2>
+      <p>Thanks for signing up. We are thrilled to have you. Please verify your email by clicking the link below:</p>
+      <a href="${verificationURL}">Verify Email</a>
+      <p>If you didn't sign up, please ignore this email.</p>`
+    ,
+  };
+
+  return await transporter.sendMail(mailOptions);
+}
 
 
