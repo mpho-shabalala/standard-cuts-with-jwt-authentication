@@ -82,7 +82,7 @@ class client{
                 await recover.handleFormSubmit(recoveryForm, notificationParagraph, '/authentication/recover_account');
             }
         }else if(document.body.id === 'verify-user'){
-            const verify = new verifyUser('/verify_user');
+            const verify = new verifyUser('/authentication/verify_user');
         }
     }
 

@@ -23,7 +23,7 @@ export class verifyUser extends AutoRoutingMixin(Standardcuts){
             try{
             const data = await this.submitURLToken();
             if(data.status === 'success'){
-                console.log('user verified')
+                console.log('user verified', data)
                 setTimeout(() => {
                     this.routeToPage(data, this.pageUrl);
                 }, 4000);
@@ -33,8 +33,6 @@ export class verifyUser extends AutoRoutingMixin(Standardcuts){
             }catch(error){
                 console.log(error.message);
             }
-        })
-        
-        
+        })  
     }
 }

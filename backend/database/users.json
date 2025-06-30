@@ -1,1 +1,13 @@
-{"users":[{"userID":"typ5_o_or","username":"mpho","email":"uraclinetechspace012@gmail.com","contacts":"0832456789","password":"$2b$15$uVuy.hWGxztK5MdKoXy9y.qYqbgpi35vUV0tycRG4FF3bTp3wiw32","acceptNewsletter":true,"emailVerified":false},{"userID":"mirEL4XeM","username":"mphoza","email":"mphog3401@gmail.com","contacts":"0832456789","password":"$2b$15$CFRsjfHTuSl448yjPBDkL.ZFWHKuUpa6G.JgoQkj4X4/0VHE5ewr6","acceptNewsletter":true,"emailVerified":false}]}
+{
+  "users": [
+    {
+      "userID": "oij4jnz8N",
+      "username": "mphoza",
+      "email": "mphog3401@gmail.com",
+      "contacts": "0832456789",
+      "password": "$2b$15$O0Co5b8pcY0Y5Sk.euM6POKHPPu0qQYlsSnLxQualVHvFQt3bZwt6",
+      "acceptNewsletter": true,
+      "emailVerified": true
+    }
+  ]
+}

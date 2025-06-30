@@ -39,7 +39,8 @@ exports.sendPasswordResetEmail = async (to, resetToken, username) => {
 };
 
 exports.sendVerificationEmail = async (to , verificationToken, username) => {
-   const verificationURL = `${process.env.PAGE_RECOVER_URL}/verify-user-email.html?token=${verificationToken}`; // frontend route
+   const verificationURL = `${process.env.PAGE_RECOVER_URL}/verifyUser.html?token=${verificationToken}`; // frontend route
+   console.log(verificationURL)
   const mailOptions = {
      from: `Standard Cuts Support Team" <${process.env.EMAIL_USERNAME}>`,
     to,
@@ -51,7 +52,7 @@ exports.sendVerificationEmail = async (to , verificationToken, username) => {
       <p>If you didn't sign up, please ignore this email.</p>`
     ,
   };
-
+  console.log(mailOptions)
   return await transporter.sendMail(mailOptions);
 }
 
